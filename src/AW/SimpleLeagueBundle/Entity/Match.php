@@ -19,13 +19,18 @@ class Match
     private $startDate;
 
     /** 
+     * @ORM\OneToMany(targetEntity="MatchTeam", mappedBy="match")
+     */
+    private $matchTeam;
+
+    /** 
      * @ORM\ManyToOne(targetEntity="Season", inversedBy="match")
      * @ORM\JoinColumn(name="season_id", referencedColumnName="id")
      */
     private $season;
 
     /** 
-     * @ORM\ManyToMany(targetEntity="Team", mappedBy="match")
+     * 
      */
     private $team;
 }

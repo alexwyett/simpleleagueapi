@@ -1,0 +1,103 @@
+<?xml version="1.0"?>
+<orm-designer version="2.3.1.855" mvc="Symfony2" orm="Doctrine2">
+  <module name="LeagueSystem" import-format="Doctrine2Php" import-path="." uuid="767b1a86-1d92-455d-bb00-a282b8e45f77">
+    <entity name="Season" uuid="2bbb08eb-b384-4a1e-85ca-92b3537c1c5e">
+      <field name="id" type="integer" required="true" unique="true" primary="true" auto-increment="true" uuid="a73378cd-ffc5-4af8-9e13-17f2a797544f"/>
+      <field name="startDate" type="date" uuid="ce5864e4-5da2-4a54-9f38-dfe813eb3a8e"/>
+      <field name="league_id" type="integer" uuid="7de55573-6252-4998-93d5-3df6b6d2e43e"/>
+    </entity>
+    <association from="Season" to="League" caption="League Season" owner-alias="season" inverse-alias="league" uuid="339a4712-7814-4e92-afc0-c2e5e4c40810">
+      <association-field from="league_id" to="id"/>
+    </association>
+    <entity name="League" uuid="58b92acc-7ecf-44d2-9203-b068448c6c51">
+      <field name="id" type="integer" required="true" unique="true" primary="true" auto-increment="true" uuid="1362433b-3954-4ba5-a2dc-2d9665a53b47"/>
+      <field name="name" type="string" size="255" uuid="2f80ecb9-36ba-4c4c-b0ab-38bda1934248"/>
+    </entity>
+    <entity name="Match" uuid="af145c9e-5209-42d9-8d64-fe83edce56e3">
+      <field name="id" type="integer" required="true" unique="true" primary="true" auto-increment="true" uuid="d5a7cc5f-1663-405b-9da8-587e968352ba"/>
+      <field name="startDate" type="date" uuid="9977f13e-c2cf-4c65-840c-4a6eb15f620c"/>
+      <field name="season_id" type="integer" uuid="9c7cabdd-05ed-400d-a082-ce4f7cf35464"/>
+    </entity>
+    <association from="Match" to="Season" caption="Season Match" owner-alias="match" inverse-alias="season" uuid="141b8dcd-4157-44c1-818c-e774c4a91569">
+      <association-field from="season_id" to="id"/>
+    </association>
+    <entity name="Team" uuid="80111742-e002-4e89-a8b2-ec921c22b1db">
+      <field name="id" type="integer" required="true" unique="true" primary="true" auto-increment="true" uuid="271ed1f4-f6e0-4b4a-821a-7523362189ee"/>
+      <field name="name" type="string" size="255" uuid="29f2c6cf-27d8-48c9-9d08-401ac6e9c49b"/>
+      <field name="club_id" type="integer" uuid="5685263c-bbfa-49bf-8696-634ea6c8b3ea"/>
+    </entity>
+    <association from="Team" to="Club" caption="Club Team" owner-alias="team" inverse-alias="club" uuid="a84bd3a6-6789-4d5f-85a1-a6aed76923d6">
+      <association-field from="club_id" to="id"/>
+    </association>
+    <entity name="Club" uuid="c09d2932-400a-4df9-88ca-e7d7fc4d70db">
+      <field name="id" type="integer" required="true" unique="true" primary="true" auto-increment="true" uuid="9fe2f7c1-3b84-4f7f-a511-729596ad5e6e"/>
+      <field name="name" type="string" size="255" uuid="13ca197c-aca6-4a30-a440-b2556e82265f"/>
+    </entity>
+    <entity name="Score" uuid="41e3c25a-e80e-4153-a4ae-21f52976d2c8">
+      <field name="id" type="integer" required="true" unique="true" primary="true" auto-increment="true" uuid="eaa6512c-b3fe-4e4f-a1e9-90a55076b4b6"/>
+      <field name="value" type="string" size="255" uuid="0b20bd86-31eb-451c-8f71-dbeb870de006"/>
+      <field name="match_team_match_id" type="integer" uuid="8242e5dc-b42e-4279-99e8-0abc3b421342"/>
+      <field name="match_team_team_id" type="integer" uuid="4241a249-bf04-42ef-84cd-d60a737cd649"/>
+    </entity>
+    <association from="Score" to="MatchTeam" caption="MatchTeam Score" owner-alias="score" inverse-alias="matchTeam" uuid="2db43d98-38e6-4635-95a4-7dd912c6b320">
+      <association-field from="match_team_match_id" to="match_id"/>
+      <association-field from="match_team_team_id" to="team_id"/>
+    </association>
+    <entity name="Activity" uuid="1c37962f-6b73-4796-9f39-0b8569b7dbc4">
+      <field name="id" type="integer" required="true" unique="true" primary="true" auto-increment="true" uuid="0d61a303-7735-4c81-8a03-518046107ef5"/>
+      <field name="entity" type="string" uuid="8e38f91a-dfc9-4873-8131-dca05c9e629d"/>
+      <field name="activity" type="string" uuid="a6b3a0bf-d309-4fd3-bb96-3c5ab76f2e18"/>
+      <field name="league_user_id" type="integer" uuid="b9e7052b-bdec-4230-a511-e255190e5452"/>
+      <index name="ActivityIndex">
+        <index-field name="entity"/>
+      </index>
+    </entity>
+    <association from="Activity" to="LeagueUser" caption="LeagueUser Activity" owner-alias="activity" inverse-alias="leagueUser" uuid="056993b4-9f55-443b-b1db-837240e50edb">
+      <association-field from="league_user_id" to="id"/>
+    </association>
+    <entity name="LeagueUser" uuid="71bcc85c-8e31-488d-b4e9-45c0fb9be2ae">
+      <field name="id" type="integer" required="true" unique="true" primary="true" auto-increment="true" uuid="b7c0ced8-3334-4aa2-915a-1cfef3d8abea"/>
+      <field name="name" type="string" size="64" uuid="0e798f25-e8cd-4842-8a76-0970984112c7"/>
+      <field name="email" type="string" size="128" uuid="8de03632-f1a6-4ba8-8682-e85ee89ecbcf"/>
+      <field name="password" type="string" size="256" uuid="41064aea-9f76-4758-8cae-7fe7fc2000a0"/>
+    </entity>
+    <entity name="MatchTeam" uuid="d974226c-0482-40ea-a2e9-11afe762e0ca">
+      <field name="is_home" type="smallint" size="1" default="0" required="true" unique="true" auto-increment="true" uuid="ccc89198-b0e2-452a-8729-b7ee69bf791e"/>
+      <field name="match_id" type="integer" primary="true" uuid="d39e0d6d-6bdf-4466-b167-9d3c5575f4d3"/>
+      <field name="team_id" type="integer" primary="true" uuid="d3240d1f-f8b1-42e6-bd19-a5ec46af6b8d"/>
+    </entity>
+    <association from="MatchTeam" to="Match" caption="Match MatchTeam" owner-alias="matchTeam" inverse-alias="match" uuid="c884033b-7af1-4ce5-96ba-6bdd107586f1">
+      <association-field from="match_id" to="id"/>
+    </association>
+    <association from="MatchTeam" to="Team" caption="Team MatchTeam" owner-alias="matchTeam" inverse-alias="team" uuid="d1ed4209-562c-4e4c-a515-b373ba185209">
+      <association-field from="team_id" to="id"/>
+    </association>
+    <region caption="Admin" uuid="9b024510-b617-45a3-90c3-dade881e191d">
+      <entity-ref name="Activity"/>
+      <entity-ref name="LeagueUser"/>
+    </region>
+    <region caption="Core" uuid="f1e8bc5c-ab86-46ed-ac92-c2a8b9dabd86">
+      <entity-ref name="Season"/>
+      <entity-ref name="League"/>
+      <entity-ref name="Match"/>
+      <entity-ref name="Team"/>
+      <entity-ref name="Club"/>
+      <entity-ref name="Score"/>
+      <entity-ref name="MatchTeam"/>
+    </region>
+  </module>
+  <visual-data>
+    <entity uuid="1c37962f-6b73-4796-9f39-0b8569b7dbc4" position-x="79" position-y="30" size-x="0" size-x2="124" size-y="0" size-y2="73"/>
+    <entity uuid="2bbb08eb-b384-4a1e-85ca-92b3537c1c5e" position-x="250" position-y="50" size-x="0" size-x2="101" size-y="0" size-y2="59"/>
+    <entity uuid="41e3c25a-e80e-4153-a4ae-21f52976d2c8" position-x="450" position-y="350" size-x="0" size-x2="157" size-y="0" size-y2="73"/>
+    <entity uuid="58b92acc-7ecf-44d2-9203-b068448c6c51" position-x="500" position-y="54" size-x="0" size-x2="101" size-y="0" size-y2="45"/>
+    <entity uuid="71bcc85c-8e31-488d-b4e9-45c0fb9be2ae" position-x="229" position-y="180" size-x="0" size-x2="117" size-y="0" size-y2="73"/>
+    <module uuid="767b1a86-1d92-455d-bb00-a282b8e45f77" bk-color="4294308862" position-x="50" position-y="50" size-x="0" size-x2="1302" size-y="0" size-y2="600"/>
+    <entity uuid="80111742-e002-4e89-a8b2-ec921c22b1db" position-x="200" position-y="150" size-x="0" size-x2="101" size-y="0" size-y2="59"/>
+    <region uuid="9b024510-b617-45a3-90c3-dade881e191d" bk-color="4294308862" position-x="721" position-y="70" size-x="-29" size-x2="379" size-y="20" size-y2="280"/>
+    <entity uuid="af145c9e-5209-42d9-8d64-fe83edce56e3" position-x="50" position-y="200" size-x="0" size-x2="104" size-y="0" size-y2="59"/>
+    <entity uuid="c09d2932-400a-4df9-88ca-e7d7fc4d70db" position-x="400" position-y="200" size-x="0" size-x2="101" size-y="0" size-y2="45"/>
+    <entity uuid="d974226c-0482-40ea-a2e9-11afe762e0ca" position-x="200" position-y="400" size-x="0" size-x2="112" size-y="0" size-y2="59"/>
+    <region uuid="f1e8bc5c-ab86-46ed-ac92-c2a8b9dabd86" bk-color="4294767602" position-x="50" position-y="50" size-x="0" size-x2="650" size-y="0" size-y2="499"/>
+  </visual-data>
+</orm-designer>
