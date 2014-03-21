@@ -20,18 +20,19 @@ class Team
     private $name;
 
     /** 
+     * @ORM\OneToMany(targetEntity="MatchTeam", mappedBy="team")
+     */
+    private $matchTeam;
+
+    /** 
      * @ORM\ManyToOne(targetEntity="Club", inversedBy="team")
      * @ORM\JoinColumn(name="club_id", referencedColumnName="id")
      */
     private $club;
 
     /** 
-     * @ORM\ManyToMany(targetEntity="Match", inversedBy="team")
-     * @ORM\JoinTable(
-     *     name="MatchTeam", 
-     *     joinColumns={@ORM\JoinColumn(name="team_id", referencedColumnName="id", nullable=false)}, 
-     *     inverseJoinColumns={@ORM\JoinColumn(name="match_id", referencedColumnName="id", nullable=false)}
-     * )
+     * 
+     * 
      */
     private $match;
 }

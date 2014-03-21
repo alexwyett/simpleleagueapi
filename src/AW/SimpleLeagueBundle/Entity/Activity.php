@@ -26,14 +26,15 @@ class Activity
     private $activity;
 
     /** 
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="activity")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * 
+     * 
      */
     private $user;
 
     /** 
      * 
      * 
-     */
+     @ORM\ManyToOne(targetEntity="LeagueUser", inversedBy="activity")
+     @ORM\JoinColumn(name="league_user_id", referencedColumnName="id")*/
     private $leagueUser;
 }
