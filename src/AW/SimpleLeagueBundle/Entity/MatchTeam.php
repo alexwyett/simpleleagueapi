@@ -13,8 +13,8 @@ class MatchTeam
     private $is_home;
 
     /** 
-     * @ORM\OneToOne(targetEntity="Score", mappedBy="matchTeam")
-     * @ORM\JoinColumn(name="score_id", referencedColumnName="id", unique=true)
+     * @ORM\OneToOne(targetEntity="Score", inversedBy="matchTeam")
+     * @ORM\JoinColumn(name="score_id", referencedColumnName="id", nullable=false, unique=true)
      * @ORM\Id
      */
     private $score;
@@ -22,14 +22,14 @@ class MatchTeam
     /** 
      * @ORM\Id
      * @ORM\ManyToOne(targetEntity="Match", inversedBy="matchTeam")
-     * @ORM\JoinColumn(name="match_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="match_id", referencedColumnName="id", nullable=false)
      */
     private $match;
 
     /** 
      * @ORM\Id
      * @ORM\ManyToOne(targetEntity="Team", inversedBy="matchTeam")
-     * @ORM\JoinColumn(name="team_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="team_id", referencedColumnName="id", nullable=false)
      */
     private $team;
 

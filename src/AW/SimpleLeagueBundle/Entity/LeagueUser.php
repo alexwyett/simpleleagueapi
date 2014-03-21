@@ -33,6 +33,11 @@ class LeagueUser
      * @ORM\OneToMany(targetEntity="Activity", mappedBy="leagueUser")
      */
     private $activity;
+
+    /** 
+     * @ORM\OneToMany(targetEntity="LeagueUserClub", mappedBy="leagueUser")
+     */
+    private $leagueUserClub;
     
     /**
      * Constructor

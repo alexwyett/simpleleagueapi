@@ -23,6 +23,11 @@ class Club
      * @ORM\OneToMany(targetEntity="Team", mappedBy="club")
      */
     private $team;
+
+    /** 
+     * @ORM\OneToMany(targetEntity="LeagueUserClub", mappedBy="club")
+     */
+    private $leagueUserClub;
     
     /**
      * Constructor
@@ -30,6 +35,7 @@ class Club
     public function __construct()
     {
         $this->team = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->leagueUserClub = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
