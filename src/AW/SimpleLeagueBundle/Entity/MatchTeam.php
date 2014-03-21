@@ -13,7 +13,9 @@ class MatchTeam
     private $is_home;
 
     /** 
-     * @ORM\OneToMany(targetEntity="Score", mappedBy="matchTeam")
+     * @ORM\OneToOne(targetEntity="Score", mappedBy="matchTeam")
+     * @ORM\JoinColumn(name="score_id", referencedColumnName="id", unique=true)
+     * @ORM\Id
      */
     private $score;
 
@@ -30,13 +32,6 @@ class MatchTeam
      * @ORM\JoinColumn(name="team_id", referencedColumnName="id")
      */
     private $team;
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->score = new \Doctrine\Common\Collections\ArrayCollection();
-    }
 
     /**
      * Set is_home
@@ -62,32 +57,22 @@ class MatchTeam
     }
 
     /**
-     * Add score
+     * Set score
      *
      * @param \AW\SimpleLeagueBundle\Entity\Score $score
      * @return MatchTeam
      */
-    public function addScore(\AW\SimpleLeagueBundle\Entity\Score $score)
+    public function setScore(\AW\SimpleLeagueBundle\Entity\Score $score)
     {
-        $this->score[] = $score;
+        $this->score = $score;
 
         return $this;
     }
 
     /**
-     * Remove score
-     *
-     * @param \AW\SimpleLeagueBundle\Entity\Score $score
-     */
-    public function removeScore(\AW\SimpleLeagueBundle\Entity\Score $score)
-    {
-        $this->score->removeElement($score);
-    }
-
-    /**
      * Get score
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \AW\SimpleLeagueBundle\Entity\Score 
      */
     public function getScore()
     {

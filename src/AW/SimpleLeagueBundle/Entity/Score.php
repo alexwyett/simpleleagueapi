@@ -7,21 +7,22 @@ use Doctrine\ORM\Mapping AS ORM;
  */
 class Score
 {
-    /** 
+    /**
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-
+    
     /** 
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $value;
 
     /** 
+     * 
+     * @ORM\JoinColumn(name="match_team_match_id", referencedColumnName="match_id", unique=true)
      * @ORM\ManyToOne(targetEntity="MatchTeam", inversedBy="score")
-     * @ORM\JoinColumn(name="match_team_match_id", referencedColumnName="match_id")
      * 
      */
     private $matchTeam;
