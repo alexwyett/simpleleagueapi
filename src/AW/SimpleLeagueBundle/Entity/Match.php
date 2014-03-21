@@ -1,4 +1,5 @@
 <?php
+namespace AW\SimpleLeagueBundle\Entity;
 use Doctrine\ORM\Mapping AS ORM;
 
 /** 

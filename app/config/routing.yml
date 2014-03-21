@@ -1,0 +1,8 @@
+simpleleague:
+    resource: "@AWSimpleLeagueBundle/Controller/"
+    type:     annotation
+    prefix:   /
+#aw_hmac_bundle:
+#    resource: "@AWHmacBundle/Controller/"
+#    type:     annotation
+#    prefix:   /hmac

@@ -18,8 +18,12 @@
         "sensio/distribution-bundle": "~2.3",
         "sensio/framework-extra-bundle": "~3.0",
         "sensio/generator-bundle": "~2.3",
-        "incenteev/composer-parameter-handler": "~2.0"
+        "incenteev/composer-parameter-handler": "~2.0",
+        "aw/hmac-and-validation-bundle": "dev-master"
     },
+    "repositories": [
+        { "type": "vcs", "url": "git@github.com:alexwyett/hmac-and-validation-bundle.git" }
+    ],
     "scripts": {
         "post-install-cmd": [
             "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
