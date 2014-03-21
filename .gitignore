@@ -8,5 +8,5 @@ app/logs/*
 !app/cache/.gitkeep
 !app/logs/.gitkeep
 build/
-bin/
 /nbproject/private/
+nbproject

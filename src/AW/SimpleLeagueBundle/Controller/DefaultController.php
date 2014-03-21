@@ -2,11 +2,11 @@
 
 namespace AW\SimpleLeagueBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use AW\HmacBundle\Controller as AWHmacBundle;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
-class DefaultController extends Controller
+class DefaultController extends AWHmacBundle\DefaultController
 {
     /**
      * @Route("/hello/{name}")
