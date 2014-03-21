@@ -1,6 +1,8 @@
 imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
+    - { resource: @AWHmacBundle/Resources/config/services.yml }
+    - { resource: @AWSimpleLeagueBundle/Resources/config/services.yml }
 
 framework:
     #esi:             ~
@@ -73,3 +75,10 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
+
+services:
+    kernel.listener.ExceptionListener:
+        class: AW\HmacBundle\Listeners\ExceptionListener
+        arguments: [@kernel]
+        tags:
+            - { name: kernel.event_listener, event: kernel.exception, method: onKernelException }

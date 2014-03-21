@@ -1,0 +1,4 @@
+services:
+    AW_leagueuser_service:
+        class: AW\SimpleLeagueBundle\Services\UserService
+        arguments: ["@doctrine.orm.default_entity_manager"]

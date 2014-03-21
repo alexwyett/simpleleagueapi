@@ -153,4 +153,18 @@ class LeagueUser
     {
         return $this->activity;
     }
+    
+    /**
+     * Array representation of LeagueUser
+     * 
+     * @return array
+     */
+    public function toArray()
+    {
+        return array(
+            'id' => $this->getId(),
+            'name' => $this->getName(),
+            'email' => $this->getEmail()
+        );
+    }
 }
