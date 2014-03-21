@@ -103,4 +103,37 @@ class Club
     {
         return $this->team;
     }
+
+    /**
+     * Add leagueUserClub
+     *
+     * @param \AW\SimpleLeagueBundle\Entity\LeagueUserClub $leagueUserClub
+     * @return Club
+     */
+    public function addLeagueUserClub(\AW\SimpleLeagueBundle\Entity\LeagueUserClub $leagueUserClub)
+    {
+        $this->leagueUserClub[] = $leagueUserClub;
+
+        return $this;
+    }
+
+    /**
+     * Remove leagueUserClub
+     *
+     * @param \AW\SimpleLeagueBundle\Entity\LeagueUserClub $leagueUserClub
+     */
+    public function removeLeagueUserClub(\AW\SimpleLeagueBundle\Entity\LeagueUserClub $leagueUserClub)
+    {
+        $this->leagueUserClub->removeElement($leagueUserClub);
+    }
+
+    /**
+     * Get leagueUserClub
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getLeagueUserClub()
+    {
+        return $this->leagueUserClub;
+    }
 }
