@@ -33,16 +33,6 @@
       <field name="id" type="integer" required="true" unique="true" primary="true" auto-increment="true" uuid="9fe2f7c1-3b84-4f7f-a511-729596ad5e6e"/>
       <field name="name" type="string" size="255" uuid="13ca197c-aca6-4a30-a440-b2556e82265f"/>
     </entity>
-    <entity name="Score" uuid="41e3c25a-e80e-4153-a4ae-21f52976d2c8">
-      <field name="id" type="integer" required="true" unique="true" primary="true" auto-increment="true" uuid="eaa6512c-b3fe-4e4f-a1e9-90a55076b4b6"/>
-      <field name="value" type="string" size="255" uuid="0b20bd86-31eb-451c-8f71-dbeb870de006"/>
-      <field name="match_team_match_id" type="integer" uuid="8242e5dc-b42e-4279-99e8-0abc3b421342"/>
-      <field name="match_team_team_id" type="integer" uuid="4241a249-bf04-42ef-84cd-d60a737cd649"/>
-    </entity>
-    <association from="Score" to="MatchTeam" caption="MatchTeam Score" owner-alias="score" inverse-alias="matchTeam" uuid="2db43d98-38e6-4635-95a4-7dd912c6b320">
-      <association-field from="match_team_match_id" to="match_id"/>
-      <association-field from="match_team_team_id" to="team_id"/>
-    </association>
     <entity name="Activity" uuid="1c37962f-6b73-4796-9f39-0b8569b7dbc4">
       <field name="id" type="integer" required="true" unique="true" primary="true" auto-increment="true" uuid="0d61a303-7735-4c81-8a03-518046107ef5"/>
       <field name="entity" type="string" uuid="8e38f91a-dfc9-4873-8131-dca05c9e629d"/>
@@ -65,6 +55,7 @@
       <field name="is_home" type="smallint" size="1" default="0" required="true" unique="true" auto-increment="true" uuid="ccc89198-b0e2-452a-8729-b7ee69bf791e"/>
       <field name="match_id" type="integer" primary="true" uuid="d39e0d6d-6bdf-4466-b167-9d3c5575f4d3"/>
       <field name="team_id" type="integer" primary="true" uuid="d3240d1f-f8b1-42e6-bd19-a5ec46af6b8d"/>
+      <field name="score_id" type="integer" unique="true" primary="true" uuid="52b18a51-a3b8-4255-83d5-e7d86b2fcdad"/>
     </entity>
     <association from="MatchTeam" to="Match" caption="Match MatchTeam" owner-alias="matchTeam" inverse-alias="match" uuid="c884033b-7af1-4ce5-96ba-6bdd107586f1">
       <association-field from="match_id" to="id"/>
@@ -72,6 +63,13 @@
     <association from="MatchTeam" to="Team" caption="Team MatchTeam" owner-alias="matchTeam" inverse-alias="team" uuid="d1ed4209-562c-4e4c-a515-b373ba185209">
       <association-field from="team_id" to="id"/>
     </association>
+    <association from="MatchTeam" to="Score" caption="Score MatchTeam" owner-alias="matchTeam" inverse-alias="score" uuid="268f47f6-5031-46f3-b6c3-9e81ceb5d25e">
+      <association-field from="score_id" to="id"/>
+    </association>
+    <entity name="Score" uuid="58751e2e-7166-46a1-9e0f-1b86f6f48c1c">
+      <field name="id" type="integer" required="true" unique="true" primary="true" auto-increment="true" uuid="d77f2944-d2fb-4b3a-b16d-8441fa71ef7d"/>
+      <field name="value" type="string" uuid="098b4fac-f4ec-422e-8ad3-082bd509df93"/>
+    </entity>
     <region caption="Admin" uuid="9b024510-b617-45a3-90c3-dade881e191d">
       <entity-ref name="Activity"/>
       <entity-ref name="LeagueUser"/>
@@ -82,22 +80,22 @@
       <entity-ref name="Match"/>
       <entity-ref name="Team"/>
       <entity-ref name="Club"/>
-      <entity-ref name="Score"/>
       <entity-ref name="MatchTeam"/>
+      <entity-ref name="Score"/>
     </region>
   </module>
   <visual-data>
     <entity uuid="1c37962f-6b73-4796-9f39-0b8569b7dbc4" position-x="79" position-y="30" size-x="0" size-x2="124" size-y="0" size-y2="73"/>
     <entity uuid="2bbb08eb-b384-4a1e-85ca-92b3537c1c5e" position-x="250" position-y="50" size-x="0" size-x2="101" size-y="0" size-y2="59"/>
-    <entity uuid="41e3c25a-e80e-4153-a4ae-21f52976d2c8" position-x="450" position-y="350" size-x="0" size-x2="157" size-y="0" size-y2="73"/>
+    <entity uuid="58751e2e-7166-46a1-9e0f-1b86f6f48c1c" position-x="400" position-y="416" size-x="0" size-x2="20" size-y="0" size-y2="20"/>
     <entity uuid="58b92acc-7ecf-44d2-9203-b068448c6c51" position-x="500" position-y="54" size-x="0" size-x2="101" size-y="0" size-y2="45"/>
     <entity uuid="71bcc85c-8e31-488d-b4e9-45c0fb9be2ae" position-x="229" position-y="180" size-x="0" size-x2="117" size-y="0" size-y2="73"/>
-    <module uuid="767b1a86-1d92-455d-bb00-a282b8e45f77" bk-color="4294308862" position-x="50" position-y="50" size-x="0" size-x2="1302" size-y="0" size-y2="600"/>
+    <module uuid="767b1a86-1d92-455d-bb00-a282b8e45f77" bk-color="4294308862" position-x="50" position-y="50" size-x="0" size-x2="1150" size-y="0" size-y2="600"/>
     <entity uuid="80111742-e002-4e89-a8b2-ec921c22b1db" position-x="200" position-y="150" size-x="0" size-x2="101" size-y="0" size-y2="59"/>
     <region uuid="9b024510-b617-45a3-90c3-dade881e191d" bk-color="4294308862" position-x="721" position-y="70" size-x="-29" size-x2="379" size-y="20" size-y2="280"/>
     <entity uuid="af145c9e-5209-42d9-8d64-fe83edce56e3" position-x="50" position-y="200" size-x="0" size-x2="104" size-y="0" size-y2="59"/>
     <entity uuid="c09d2932-400a-4df9-88ca-e7d7fc4d70db" position-x="400" position-y="200" size-x="0" size-x2="101" size-y="0" size-y2="45"/>
-    <entity uuid="d974226c-0482-40ea-a2e9-11afe762e0ca" position-x="200" position-y="400" size-x="0" size-x2="112" size-y="0" size-y2="59"/>
+    <entity uuid="d974226c-0482-40ea-a2e9-11afe762e0ca" position-x="150" position-y="400" size-x="0" size-x2="112" size-y="0" size-y2="59"/>
     <region uuid="f1e8bc5c-ab86-46ed-ac92-c2a8b9dabd86" bk-color="4294767602" position-x="50" position-y="50" size-x="0" size-x2="650" size-y="0" size-y2="499"/>
   </visual-data>
 </orm-designer>
