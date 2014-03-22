@@ -15,26 +15,20 @@ use AW\SimpleLeagueBundle\Entity\LeagueUser;
  * @license   All rights reserved
  * @link      http://www.wyett.co.uk
  */
-class UserService
+class UserService extends CrudService
 {
-    /**
-     * Entity Manager
-     * 
-     * @var \Doctrine\ORM\EntityManager
-     */
-    private $em;
-
     /**
      * Creates a new user object
      *
-     * @param \Doctrine\ORM\EntityManager $em    The entity manager
-     * @param array                       $roles User Roles
+     * @param \Doctrine\ORM\EntityManager $em The entity manager
      * 
      * @return void
      */
     public function __construct($em)
     {
-        $this->em = $em;
+        parent::__construct($em);
+        $this->setBundleName('AWSimpleLeagueBundle');
+        $this->setEntityName('LeagueUser');
     }
     
     /**
@@ -45,9 +39,9 @@ class UserService
     public function getUsers()
     {
         $users = array();
-        $usersEm = $this->em->getRepository('AWSimpleLeagueBundle:LeagueUser')->findAll();
+        $usersEm = $this->getRepo()->findAll();
         foreach ($usersEm as $user) {
-            $users[] = $user->toArray();
+            $users[] = $user;
         }
         
         return $users;
@@ -76,11 +70,11 @@ class UserService
      * 
      * @throws APIException
      * 
-     * @return void
+     * @return \AW\SimpleLeagueBundle\Entity\LeagueUser
      */
     public function createUser($name, $email, $password)
     {
-        if ($this->_getUserRepo()->findBy(
+        if ($this->getRepo()->findBy(
             array(
                 'name' => $name,
                 'email' => $email
@@ -108,7 +102,7 @@ class UserService
      */
     public function updateUser($id, array $params)
     {
-        $user = $this->_getUser($name);
+        $user = $this->_getUser($id);
         foreach ($params as $key => $val) {
             $func = 'set' . ucfirst($key);
             if (method_exists($user, $func)) {
@@ -116,8 +110,7 @@ class UserService
             }
         }
         
-        $this->em->persist($user);
-        $this->em->flush();
+        $this->save($user);
     }
     
     /**
@@ -130,38 +123,20 @@ class UserService
     public function deleteUser($id)
     {
         $user = $this->_getUser($id);
-        $this->em->remove($user);
-        $this->em->flush();
+        $this->delete($user);
     }
     
     /**
-     * Get apiuser object
+     * Get league user object
      * 
      * @param integer $id User Id
      * 
      * @throws APIException
      * 
-     * @return \AW\SimpleLeagueBundle\Entity\ApiUser
+     * @return \AW\SimpleLeagueBundle\Entity\LeagueUser
      */
     private function _getUser($id)
     {
-        $user = $this->_getUserRepo()->findOneById($id);        
-        if ($user) {
-            return $user;
-        } else {
-            throw new APIException('User not found: ' . $id, -1, 404);
-        }
-    }
-    
-    /**
-     * Return the user repo
-     * 
-     * @return \Doctrine\ORM\EntityRepository
-     */
-    private function _getUserRepo()        
-    {
-        return $this->em->getRepository(
-            'AWSimpleLeagueBundle:LeagueUser'
-        );
+        return $this->getObject($id);
     }
 }
