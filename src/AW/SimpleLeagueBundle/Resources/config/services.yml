@@ -2,3 +2,9 @@ services:
     AW_leagueuser_service:
         class: AW\SimpleLeagueBundle\Services\UserService
         arguments: ["@doctrine.orm.default_entity_manager"]
+    AW_club_service:
+        class: AW\SimpleLeagueBundle\Services\ClubService
+        arguments: ["@doctrine.orm.default_entity_manager"]
+    AW_team_service:
+        class: AW\SimpleLeagueBundle\Services\TeamService
+        arguments: ["@doctrine.orm.default_entity_manager"]
