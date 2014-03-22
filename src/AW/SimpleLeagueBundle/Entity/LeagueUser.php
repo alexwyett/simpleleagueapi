@@ -111,7 +111,7 @@ class LeagueUser
      */
     public function setPassword($password)
     {
-        $this->password = $password;
+        $this->password = hash('SHA256', $password, false);
 
         return $this;
     }
