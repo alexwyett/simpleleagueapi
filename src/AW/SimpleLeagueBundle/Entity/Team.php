@@ -26,15 +26,10 @@ class Team
 
     /** 
      * @ORM\ManyToOne(targetEntity="Club", inversedBy="team")
-     * @ORM\JoinColumn(name="club_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="club_id", referencedColumnName="id", nullable=false)
      */
     private $club;
-
-    /** 
-     * 
-     * 
-     */
-    private $match;
+    
     /**
      * Constructor
      */
@@ -130,5 +125,19 @@ class Team
     public function getClub()
     {
         return $this->club;
+    }
+    
+    /**
+     * Array representation of a team
+     * 
+     * @return array
+     */
+    public function toArray()
+    {
+        return array(
+            'id' => $this->getId(),
+            'name' => $this->getName(),
+            'club' => $this->getClub()->toArray()
+        );
     }
 }
