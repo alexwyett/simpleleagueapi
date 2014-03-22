@@ -23,7 +23,7 @@ class UserController extends AWHmacBundle\DefaultController
     public function listLeagueUsersAction()
     {
         return $this->jsonResponse(
-            $this->_getUserService()->getUsers()
+            $this->_getUserService()->getUsersAsArray()
         );
     }
     
@@ -63,9 +63,8 @@ class UserController extends AWHmacBundle\DefaultController
             $this->getFromRequest('password')
         );
         
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($user);
-        $em->flush();
+        $this->getEm()->persist($user);
+        $this->getEm()->flush();
         
         return $this->createdResponse(
             $this->generateUrl(
