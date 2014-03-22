@@ -136,4 +136,23 @@ class Club
     {
         return $this->leagueUserClub;
     }
+    
+    /**
+     * Array representation of a club
+     * 
+     * @return array
+     */
+    public function toArray()
+    {
+        $teams = array();
+        foreach ($this->getTeam() as $team) {
+            array_push($teams, $team->toArray());
+        }
+        
+        return array(
+            'id' => $this->getId(),
+            'name' => $this->getName(),
+            'teams' => $teams
+        );
+    }
 }
