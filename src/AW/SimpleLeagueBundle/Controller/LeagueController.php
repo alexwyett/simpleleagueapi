@@ -46,9 +46,9 @@ class LeagueController extends AWHmacBundle\DefaultController
     }
     
     /**
-     * Create Club function
+     * Create League function
      * 
-     * @Route("/league")
+     * @Route("/league", name="create_league")
      * @Method("POST")
      * @HMAC(public=false, roles="ADMIN")
      * @Validation\ValidateString(field="name", maxLength=64)
@@ -74,10 +74,30 @@ class LeagueController extends AWHmacBundle\DefaultController
         );
     }
     
+    
+    /**
+     * Delete League function
+     * 
+     * @Route("/league/{id}", name="delete_league")
+     * @Method("DELETE")
+     * @HMAC(public=false, roles="ADMIN")
+     * 
+     * @param integer $id League Id
+     * 
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function deleteLeagueAction($id)
+    {
+        $league = $this->_getLeagueService()->getLeague($id);
+        $this->getEm()->remove($league);
+        $this->getEm()->flush();
+        return $this->okResponse();
+    }
+    
     /**
      * Update League
      * 
-     * @Route("/league/{id}")
+     * @Route("/league/{id}", name="update_league")
      * @Method("PUT")
      * @HMAC(public=false, roles="ADMIN")
      * @Validation\ValidateString(field="name", maxLength=64)

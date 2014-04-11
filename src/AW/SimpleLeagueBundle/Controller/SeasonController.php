@@ -48,7 +48,7 @@ class SeasonController extends AWHmacBundle\DefaultController
     /**
      * Create Season function
      * 
-     * @Route("/season")
+     * @Route("/season", name="create_season")
      * @Method("POST")
      * @HMAC(public=false, roles="ADMIN")
      * @Validation\ValidateNumber(field="league")
@@ -62,7 +62,7 @@ class SeasonController extends AWHmacBundle\DefaultController
         $league = $this->_getLeagueService()->getLeague(
             $this->getFromRequest('league')
         );
-        $date = new \DateTime($this->getFromRequest('date'));
+        $date = new \DateTime($this->getFromRequest('startDate'));
         
         $season = $this->_getSeasonService()->createSeason(
             $league, 
@@ -86,7 +86,7 @@ class SeasonController extends AWHmacBundle\DefaultController
     /**
      * Update Season
      * 
-     * @Route("/season/{id}")
+     * @Route("/season/{id}", name="update_season")
      * @Method("PUT")
      * @HMAC(public=false, roles="ADMIN")
      * @Validation\ValidateNumber(field="league")
@@ -116,7 +116,7 @@ class SeasonController extends AWHmacBundle\DefaultController
     /**
      * Delete Season
      * 
-     * @Route("/season/{id}")
+     * @Route("/season/{id}", name="delete_season")
      * @Method("DELETE")
      * @HMAC(public=false, roles="ADMIN")
      * 

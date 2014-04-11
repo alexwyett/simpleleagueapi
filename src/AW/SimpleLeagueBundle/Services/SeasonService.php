@@ -77,7 +77,8 @@ class SeasonService extends CrudService
         return $this->create(
             array(
                 'league' => $league,
-                'start' => $start
+                'name' => $name,
+                'startDate' => $start
             )
         );
     }

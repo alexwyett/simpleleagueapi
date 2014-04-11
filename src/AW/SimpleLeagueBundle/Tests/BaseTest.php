@@ -42,11 +42,15 @@ class BaseTest extends WebTestCase
                 false
             );
         } else {
-            $url = $client->getContainer()->get('router')->generate(
-                $path, 
-                array(), 
-                false
-            );
+            if (substr($path, 0, 1) == '/') {
+                $url = $path;
+            } else {
+                $url = $client->getContainer()->get('router')->generate(
+                    $path, 
+                    array(), 
+                    false
+                );
+            }
         }
         
         
@@ -83,5 +87,63 @@ class BaseTest extends WebTestCase
         $this->assertTrue(
             $headers->contains('Content-Type', 'application/json')
         );
+    }
+    
+    /**
+     * Create and return a new League object
+     * 
+     * @param string $name League Name
+     * 
+     * @return stdClass
+     */
+    public static function createNewLeague($name)
+    {
+        $response = self::doRequest(
+            'create_league',
+            'POST',
+            array(
+                'name' => $name
+            )
+        );
+        
+        $league = self::doRequest(
+            $response['headers']->get('Content-Location'),
+            'GET',
+            array(),
+            false
+        );
+        
+        return $league['json'];
+    }
+    
+    /**
+     * Create and return a new season object
+     * 
+     * @param string  $name Season Name
+     * @param string  $date Season Date
+     * @param integer $name League Id
+     * 
+     * @return stdClass
+     */
+    public static function createNewSeason($name, $date, $league_id)
+    {
+        $response = self::doRequest(
+            'create_season',
+            'POST',
+            array(
+                'name' => $name,
+                'league' => $league_id,
+                'startDate' => $date
+            )
+        );
+        
+        $season = self::doRequest(
+            $response['headers']->get('Content-Location'),
+            'GET',
+            array(),
+            false
+        );
+        
+        return $season['json'];
     }
 }
