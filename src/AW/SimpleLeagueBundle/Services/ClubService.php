@@ -57,14 +57,7 @@ class ClubService extends CrudService
      */
     public function updateClub($id, $params)
     {
-        $club = $this->_getClub($id);
-        foreach ($params as $key => $val) {
-            $func = 'set' . ucfirst($key);
-            if (method_exists($club, $func)) {
-                $club->$func($val);
-            }
-        }
-        
+        $club = $this->update($id, $params);
         $this->save($club);
     }
     
@@ -93,10 +86,11 @@ class ClubService extends CrudService
      */
     public function createClub($name)
     {
-        $club = new Club();
-        $club->setName($name);
-        
-        return $club;
+        return $this->create(
+            array(
+                'name' => $name
+            )
+        );
     }
     
     /**

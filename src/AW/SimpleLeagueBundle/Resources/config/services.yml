@@ -8,3 +8,12 @@ services:
     AW_team_service:
         class: AW\SimpleLeagueBundle\Services\TeamService
         arguments: ["@doctrine.orm.default_entity_manager"]
+    AW_season_service:
+        class: AW\SimpleLeagueBundle\Services\SeasonService
+        arguments: ["@doctrine.orm.default_entity_manager"]
+    AW_match_service:
+        class: AW\SimpleLeagueBundle\Services\MatchService
+        arguments: ["@doctrine.orm.default_entity_manager"]
+    AW_league_service:
+        class: AW\SimpleLeagueBundle\Services\LeagueService
+        arguments: ["@doctrine.orm.default_entity_manager"]

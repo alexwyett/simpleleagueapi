@@ -41,7 +41,7 @@ class TeamService extends CrudService
         $teams = array();
         $teamsEm = $this->getRepo()->findAll();
         foreach ($teamsEm as $team) {
-            $teams[] = $team->toArray();
+            $teams[] = $team;
         }
         
         return $teams;
@@ -58,7 +58,7 @@ class TeamService extends CrudService
      */
     public function getTeam($id)
     {
-        return $this->_getTeam($id)->toArray();
+        return $this->_getTeam($id);
     }
     
     /**

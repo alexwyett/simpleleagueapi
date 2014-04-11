@@ -97,4 +97,17 @@ class League
     {
         return $this->season;
     }
+    
+    /**
+     * Return the array
+     * 
+     * @return array
+     */
+    public function toArray()
+    {
+        return array(
+            'id' => $this->getId(),
+            'name' => $this->getName()
+        );
+    }
 }

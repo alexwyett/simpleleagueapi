@@ -15,6 +15,11 @@ class Season
     private $id;
 
     /** 
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $name;
+
+    /** 
      * @ORM\Column(type="date", nullable=true)
      */
     private $startDate;
@@ -29,6 +34,7 @@ class Season
      * @ORM\JoinColumn(name="league_id", referencedColumnName="id")
      */
     private $league;
+    
     /**
      * Constructor
      */
@@ -68,6 +74,29 @@ class Season
     public function getStartDate()
     {
         return $this->startDate;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     * @return Season
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string 
+     */
+    public function getName()
+    {
+        return $this->name;
     }
 
     /**
@@ -124,5 +153,20 @@ class Season
     public function getLeague()
     {
         return $this->league;
+    }
+    
+    /**
+     * Return the array
+     * 
+     * @return array
+     */
+    public function toArray()
+    {
+        return array(
+            'id' => $this->getId(),
+            'name' => $this->getName(),
+            'league' => $this->getLeague()->toArray(),
+            'startDate' => $this->getStartDate()
+        );
     }
 }

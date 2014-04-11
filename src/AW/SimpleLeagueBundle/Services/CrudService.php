@@ -3,7 +3,7 @@
 namespace AW\SimpleLeagueBundle\Services;
 
 use AW\HmacBundle\Exceptions\APIException;
-use AW\SimpleLeagueBundle\Entity\LeagueUser;
+use AW\SimpleLeagueBundle\Entity as ENT;
 
 /**
  * Handles User crud
@@ -111,6 +111,46 @@ abstract class CrudService
     }
     
     /**
+     * Create a new entity object
+     * 
+     * @param type $params
+     * 
+     * @return \AW\SimpleLeagueBundle\Entity
+     */
+    public function create($params)
+    {
+        $entity = '\AW\SimpleLeagueBundle\Entity\\' . $this->entityName;
+        $obj = new $entity();
+        foreach ($params as $key => $val) {
+            $func = 'set' . ucfirst($key);
+            if (method_exists($obj, $func)) {
+                $obj->$func($val);
+            }
+        }
+        return $obj;
+    }
+    
+    /**
+     * Return an updated object
+     * 
+     * @param integer $id     Object ID
+     * @param array   $params Parameters
+     * 
+     * @return stdClass
+     */
+    public function update($id, $params)
+    {
+        $object = $this->getObject($id);
+        foreach ($params as $key => $val) {
+            $func = 'set' . ucfirst($key);
+            if (method_exists($object, $func)) {
+                $object->$func($val);
+            }
+        }
+        return $object;
+    }
+    
+    /**
      * Save an enity
      * 
      * @param stdClass $object Object required to be persisted
@@ -172,7 +212,6 @@ abstract class CrudService
         if (substr($name, -7) == 'AsArray') {
             $accessor = str_replace('AsArray', '', $name);
             $elements = call_user_method_array($accessor, $this, $arguments);
-            
             $array = array();
             foreach ($elements as $element) {
                 array_push($array, $element->toArray());

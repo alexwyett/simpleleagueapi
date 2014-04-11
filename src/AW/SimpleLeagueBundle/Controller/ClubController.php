@@ -48,7 +48,7 @@ class ClubController extends AWHmacBundle\DefaultController
     /**
      * Create Club function
      * 
-     * @Route("/club")
+     * @Route("/club", name="create_club")
      * @Method("POST")
      * @HMAC(public=false, roles="ADMIN")
      * @Validation\ValidateString(field="name", maxLength=64)
@@ -74,10 +74,30 @@ class ClubController extends AWHmacBundle\DefaultController
         );
     }
     
+    
+    /**
+     * Delete Club function
+     * 
+     * @Route("/club/{id}", name="delete_club")
+     * @Method("DELETE")
+     * @HMAC(public=false, roles="ADMIN")
+     * 
+     * @param integer $id Club Id
+     * 
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function deleteClubAction($id)
+    {
+        $club = $this->_getClubService()->getClub($id);
+        $this->getEm()->remove($club);
+        $this->getEm()->flush();
+        return $this->okResponse();
+    }
+    
     /**
      * Update Team
      * 
-     * @Route("/club/{id}")
+     * @Route("/club/{id}", name="update_club")
      * @Method("PUT")
      * @HMAC(public=false, roles="ADMIN")
      * @Validation\ValidateString(field="name", maxLength=64)

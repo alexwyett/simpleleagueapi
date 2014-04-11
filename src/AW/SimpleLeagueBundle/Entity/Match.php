@@ -4,6 +4,7 @@ use Doctrine\ORM\Mapping AS ORM;
 
 /** 
  * @ORM\Entity
+ * @ORM\Table(name="LeagueMatch")
  */
 class Match
 {
@@ -29,11 +30,7 @@ class Match
      * @ORM\JoinColumn(name="season_id", referencedColumnName="id")
      */
     private $season;
-
-    /** 
-     * 
-     */
-    private $team;
+    
     /**
      * Constructor
      */
@@ -129,5 +126,18 @@ class Match
     public function getSeason()
     {
         return $this->season;
+    }
+    
+    /**
+     * Array return function
+     * 
+     * @return array
+     */
+    public function toArray()
+    {
+        return array(
+            'id' => $this->getId(),
+            'season' => $this->getSeason()->getId()
+        );
     }
 }

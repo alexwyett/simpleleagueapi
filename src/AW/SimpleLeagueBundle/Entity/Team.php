@@ -137,7 +137,10 @@ class Team
         return array(
             'id' => $this->getId(),
             'name' => $this->getName(),
-            'club' => $this->getClub()->toArray()
+            'club' => array(
+                'id' => $this->getClub()->getId(),
+                'name' => $this->getClub()->getName()
+            )
         );
     }
 }
